@@ -9,6 +9,10 @@ namespace Making_a_Player_Class
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        Texture2D amoebaTexture;
+
+        Player amoeba;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -21,6 +25,8 @@ namespace Making_a_Player_Class
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            amoeba = new Player(amoebaTexture, 10, 10);
+
         }
 
         protected override void LoadContent()
@@ -28,6 +34,7 @@ namespace Making_a_Player_Class
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            amoebaTexture = Content.Load<Texture2D>("amoeba");
         }
 
         protected override void Update(GameTime gameTime)
@@ -45,6 +52,10 @@ namespace Making_a_Player_Class
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            _spriteBatch.Begin();
+            amoeba.Draw(_spriteBatch);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
