@@ -37,8 +37,6 @@ namespace Making_a_Player_Class
             }
         }
 
-
-
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, _location, Color.White);
@@ -46,19 +44,35 @@ namespace Making_a_Player_Class
 
         private void Move()
         {
-            _location.X += (int)_speed.X;
+            _location.X += (int)_speed.X;          
             _location.Y += (int)_speed.Y;
+        }
+
+        public void UndoMove()
+        {
+            _location.X -= (int)_speed.X;
+            _location.Y -= (int)_speed.Y;
         }
 
         public void Update()
         {
-            Move();
-           
+            Move();        
         }
 
         public Boolean Collide(Rectangle item)
         {
             return _location.Intersects(item);
+        }
+
+        public Boolean Contains(Rectangle item)
+        {
+            return _location.Contains(item);
+        }
+
+        public void Grow()
+        {
+            _location.Width += 1;
+            _location.Height += 1;
         }
     }
 }
