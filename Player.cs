@@ -7,7 +7,7 @@ using System.Text;
 namespace Making_a_Player_Class
 {
     class Player
-{
+    {
         private Texture2D _texture;
         private Rectangle _location;
         private Vector2 _speed;
@@ -22,20 +22,15 @@ namespace Making_a_Player_Class
         public float HSpeed
         {
             get { return _speed.X;  }
-            set
-            {
-                _speed.X = value;
-            }
+            set { _speed.X = value; }
         }
 
         public float VSpeed
         {
             get { return _speed.Y; }
-            set
-            {
-                _speed.Y = value;
-            }
+            set { _speed.Y = value; }
         }
+    
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -59,7 +54,7 @@ namespace Making_a_Player_Class
             Move();        
         }
 
-        public Boolean Collide(Rectangle item)
+        public bool Collide(Rectangle item)
         {
             return _location.Intersects(item);
         }

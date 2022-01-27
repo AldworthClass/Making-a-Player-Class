@@ -42,18 +42,18 @@ namespace Making_a_Player_Class
 
             Rectangle temp;
             food = new List<Rectangle>();
-            bool safe;
+            bool safe; 
 
             // Adds 50 food items that do not intersect with walls
-            while (food.Count < 50)
+            while (food.Count < 50) 
             {
-                safe = true;
+                safe = true; // Assume the food will be in a safe spot
                 temp = new Rectangle(generator.Next(_graphics.PreferredBackBufferWidth - 10), generator.Next(_graphics.PreferredBackBufferHeight - 10), 10, 10);
                 foreach (Rectangle barrier in barriers)
-                    if (barrier.Intersects(temp))
-                        safe = false;
+                    if (barrier.Intersects(temp)) // If the food intersects a barrier, it should not be used
+                        safe = false; 
                 
-                if (safe)
+                if (safe) // The food did not intersect with a wall so it can be added to the list.
                     food.Add(temp);                 
             }
                 
