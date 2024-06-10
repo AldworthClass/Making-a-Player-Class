@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,47 +12,43 @@ namespace Making_a_Player_Class
         private Texture2D _texture;
         private Rectangle _location;
         private Vector2 _speed;
+        private Rectangle _window;
 
-        public Player(Texture2D texture, int x, int y)
+        public Player(Texture2D texture, int x, int y, Rectangle window)
         {
             _texture = texture;
             _location = new Rectangle(x, y, 30, 30);
-            _speed = new Vector2();
+            _speed = Vector2.Zero;
+            _window = window;
         }
-
-        public float HSpeed
-        {
-            get { return _speed.X;  }
-            set { _speed.X = value; }
-        }
-
-        public float VSpeed
-        {
-            get { return _speed.Y; }
-            set { _speed.Y = value; }
-        }
-    
+  
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, _location, Color.White);
         }
 
-        private void Move()
-        {
-            _location.X += (int)_speed.X;          
-            _location.Y += (int)_speed.Y;
-        }
-
+     
         public void UndoMove()
         {
-            _location.X -= (int)_speed.X;
-            _location.Y -= (int)_speed.Y;
+            _location.Offset(-_speed);
         }
 
-        public void Update()
+        public void Update(KeyboardState keyboardState)
         {
-            Move();        
+            _speed = Vector2.Zero;
+            if (keyboardState.IsKeyDown(Keys.D))
+                _speed.X += 3;
+            if (keyboardState.IsKeyDown(Keys.A))
+                _speed.X += -3;
+            if (keyboardState.IsKeyDown(Keys.W))
+                _speed.Y += -3;
+            if (keyboardState.IsKeyDown(Keys.S))
+                _speed.Y += 3;
+
+            _location.Offset(_speed);
+            if (!_window.Contains(_location))
+                UndoMove();
         }
 
         public bool Collide(Rectangle item)

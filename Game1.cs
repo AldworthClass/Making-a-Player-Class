@@ -20,6 +20,7 @@ namespace Making_a_Player_Class
         Texture2D foodTexture;
 
         Player amoeba;
+        Rectangle window;
 
         List<Rectangle> barriers;
         List<Rectangle> food;
@@ -35,6 +36,10 @@ namespace Making_a_Player_Class
         {
          
             // TODO: Add your initialization logic here
+            window = new Rectangle(0, 0, 800, 500);
+            _graphics.PreferredBackBufferWidth = window.Width;
+            _graphics.PreferredBackBufferHeight = window.Height;
+            _graphics.ApplyChanges();
             barriers = new List<Rectangle>();
             
             barriers.Add(new Rectangle(100, 100, 10, 200));
@@ -58,7 +63,7 @@ namespace Making_a_Player_Class
             }
                 
             base.Initialize();
-            amoeba = new Player(amoebaTexture, 10, 10);
+            amoeba = new Player(amoebaTexture, 10, 10, window);
 
         }
 
@@ -80,20 +85,8 @@ namespace Making_a_Player_Class
                 Exit();
 
             // TODO: Add your update logic here
-            amoeba.HSpeed = 0;
-            amoeba.VSpeed = 0;
 
-            if (keyboardState.IsKeyDown(Keys.D))
-                amoeba.HSpeed = 3;
-            else if (keyboardState.IsKeyDown(Keys.A))
-                amoeba.HSpeed = -3;
-
-            if (keyboardState.IsKeyDown(Keys.W))
-                amoeba.VSpeed = -3;
-            else if (keyboardState.IsKeyDown(Keys.S))
-                amoeba.VSpeed = 3;
-
-            amoeba.Update();
+            amoeba.Update(keyboardState);
 
             // Look for wall collisions
             foreach (Rectangle barrier in barriers)
@@ -109,7 +102,6 @@ namespace Making_a_Player_Class
                     i--;
                 }
                     
-
             base.Update(gameTime);
         }
 
